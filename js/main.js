@@ -49,32 +49,26 @@ var GameState = {
             animal.events.onInputDown.add(self.animateAnimal, self);
         });
         
-        // Center of the world
-        this.chicken = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'chicken');
+        // Left Arrow
+        this.leftArrow = this.game.add.sprite(60, this.game.world.centerY, 'arrow');
+        this.leftArrow.anchor.setTo(0.5);
+        this.leftArrow.scale.x = -1;
+        this.leftArrow.customParams = {direction : -1};
         
-        // Place sprite by center
-        this.chicken.anchor.setTo(0.5, 0.5);
+        // Left Arrow User Input
+        this.leftArrow.inputEnabled = true;
+        this.leftArrow.input.pixelPerfectClick = true;
+        this.leftArrow.onInputDown.add(this.switchAnimal, this);
         
-        // Increase width by 2
-        this.chicken.scale.setTo(2, 1);
+        // Right Arrow
+        this.rightArrow = this.game.add.sprite(580, this.game.world.centerY, 'arrow');
+        this.rightArrow .anchor.setTo(0.5);
+        this.rightArrow.customParams = {direction : 1};
         
-        this.horse = this.game.add.sprite(120, 10, 'horse');
-        
-        // Decrease dimensions to half
-        this.horse.scale.setTo(0.5);
-        
-        this.pig = this.game.add.sprite(500, 300, 'pig');
-        this.pig.anchor.setTo(0.5);
-        
-        // Flip on X
-        this.pig.scale.setTo(-1, 1);
-        
-        this.sheep = this.game.add.sprite(100, 250, 'sheep');
-        this.sheep.scale.setTo(0.5);
-        this.sheep.anchor.setTo(0.5);
-        
-        // Rotate 90 degrees clockwise
-        this.sheep.angle = 90;
+        // Right Arrow User Input
+        this.rightArrow.inputEnabled = true;
+        this.rightArrow.input.pixelPerfectClick = true;
+        this.rightArrow.onInputDown.add(this.switchAnimal, this);
     },
     
     update : function(){

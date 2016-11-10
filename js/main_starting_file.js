@@ -31,7 +31,26 @@ var GameState = {
             {key: 'sheep', text: 'SHEEP'}        
         ];
         
+        // Left Arrow
+        this.leftArrow = this.game.add.sprite(60, this.game.world.centerY, 'arrow');
+        this.leftArrow.anchor.setTo(0.5);
+        this.leftArrow.scale.x = -1;
+        this.leftArrow.customParams = {direction : -1};
         
+        // Left Arrow User Input
+        this.leftArrow.inputEnabled = true;
+        this.leftArrow.input.pixelPerfectClick = true;
+        this.leftArrow.onInputDown.add(this.switchAnimal, this);
+        
+        // Right Arrow
+        this.rightArrow = this.game.add.sprite(580, this.game.world.centerY, 'arrow');
+        this.rightArrow .anchor.setTo(0.5);
+        this.rightArrow.customParams = {direction : 1};
+        
+        // Right Arrow User Input
+        this.rightArrow.inputEnabled = true;
+        this.rightArrow.input.pixelPerfectClick = true;
+        this.rightArrow.onInputDown.add(this.switchAnimal, this);
     },
     
     update : function(){
