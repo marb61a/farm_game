@@ -17,35 +17,11 @@ var GameState = {
         this.scale.pageAlignHorizontally = true;
         this.scale.pageAlignVertically = true;
         
+        // Set screen size automatically
+        this.scale.setScreenSize(true);
+        
         // Background Sprite
-        this.background = this.game.add.sprite(0, 0, 'background');
-        
-        // Center of the world
-        this.chicken = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'chicken');
-        
-        // Place sprite by center
-        this.chicken.anchor.setTo(0.5, 0.5);
-        
-        // Increase width by 2
-        this.chicken.scale.setTo(2, 1);
-        
-        this.horse = this.game.add.sprite(120, 10, 'horse');
-        
-        // Decrease dimensions to half
-        this.horse.scale.setTo(0.5);
-        
-        this.pig = this.game.add.sprite(500, 300, 'pig');
-        this.pig.anchor.setTo(0.5);
-        
-        // Flip on X
-        this.pig.scale.setTo(-1, 1);
-        
-        this.sheep = this.game.add.sprite(100, 250, 'sheep');
-        this.sheep.scale.setTo(0.5);
-        this.sheep.anchor.setTo(0.5);
-        
-        // Rotate 90 degrees clockwise
-        this.sheep.angle = 90;
+        this.background = this.game.add.sprite(0, 0, 'background');   
     },
     
     update : function(){
@@ -60,7 +36,6 @@ var GameState = {
     switchAnimal : function(sprite, event){
         console.log('move animal');
     }
-    
 };
 
 // Initiate Phaser
