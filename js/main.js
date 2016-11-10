@@ -20,6 +20,35 @@ var GameState = {
         // Background Sprite
         this.background = this.game.add.sprite(0, 0, 'background');
         
+        // Animal group
+        var animalData = [
+            {key: 'chicken', text: 'CHICKEN'},
+            {key: 'horse', text: 'HORSE'},
+            {key: 'pig', text: 'PIG'},
+            {key: 'sheep', text: 'SHEEP'}        
+        ];
+        
+        this.animals = this.game.add.group();
+        
+        var self = this;
+        var animal;
+        
+        animalData.forEach(function(element) {
+            // Create the animals and put in group
+            animal = self.animals.create(-1000, self.game.world.centerY, element.key);
+            
+            // Custom property to save non Phaser related items
+            animal.customParams = {text : element.text};
+            
+            // Set anchor point to sprite center
+            animal.anchor.setTo(0.5);
+            
+            // Enable input
+            animal.inputEnabled = true;
+            animal.input.pixelPerfectClick = true;
+            animal.events.onInputDown.add(self.animateAnimal, self);
+        });
+        
         // Center of the world
         this.chicken = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'chicken');
         

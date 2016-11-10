@@ -21,7 +21,17 @@ var GameState = {
         this.scale.setScreenSize(true);
         
         // Background Sprite
-        this.background = this.game.add.sprite(0, 0, 'background');   
+        this.background = this.game.add.sprite(0, 0, 'background');
+        
+        // Animal group
+        var animalData = [
+            {key: 'chicken', text: 'CHICKEN'},
+            {key: 'horse', text: 'HORSE'},
+            {key: 'pig', text: 'PIG'},
+            {key: 'sheep', text: 'SHEEP'}        
+        ];
+        
+        
     },
     
     update : function(){
