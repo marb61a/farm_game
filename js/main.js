@@ -49,6 +49,10 @@ var GameState = {
             animal.events.onInputDown.add(self.animateAnimal, self);
         });
         
+        // Place first animal in the middle
+        this.currentAnimal = this.animals.next();
+        this.currentAnimal.position.set(this.game.world.centerX, this.game.world.centerY);
+        
         // Left Arrow
         this.leftArrow = this.game.add.sprite(60, this.game.world.centerY, 'arrow');
         this.leftArrow.anchor.setTo(0.5);
@@ -81,7 +85,29 @@ var GameState = {
     
     // Switch animal
     switchAnimal : function(sprite, event){
-        console.log('move animal');
+        var newAnimal, endX;
+        
+        // Animal comes in depending on which arrow is pressed
+        if(sprite.customParams.direction > 0){
+            newAnimal = this.animals.next();
+            newAnimal.x = -newAnimal.width/2;
+            endX = 640 + this.currentAnimal.width/2;
+        } else{
+            newAnimal = this.animals.previous();
+            newAnimal.x = 640 + newAnimal.width/2;
+            endX = -this.currentAnimal.width/2;
+        }
+        
+        // Between animations, moving on x
+        var newAnimalMovement = this.game.add.tween(newAnimal);
+        newAnimalMovement.to({x: this.game.world.centerX}, 1000);
+        newAnimalMovement.start();
+        
+        var currentAnimalMovement = this.game.add.tween(this.currentAnimal);
+        currentAnimalMovement.to({x: endX}, 1000);
+        currentAnimalMovement.start();
+        
+        this.currentAnimal = newAnimal;
     }
     
 };
