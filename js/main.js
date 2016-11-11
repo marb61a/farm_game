@@ -3,10 +3,16 @@ var GameState = {
     // Load game assets prior to game starting
     preload : function(){
         this.load.image('background', 'assets/images/background.png');
-        this.load.image('chicken', 'assets/images/chicken.png');
+        this.load.image('arrow', 'assets/images/arrow.png');
+        /*this.load.image('chicken', 'assets/images/chicken.png');
         this.load.image('horse', 'assets/images/horse.png');
         this.load.image('pig', 'assets/images/pig.png');
-        this.load.image('sheep', 'assets/images/sheep3.png');
+        this.load.image('sheep', 'assets/images/sheep3.png');*/
+    
+        this.load.spritesheet('chicken', 'assets/images/chicken_spritesheet.png', 131, 200, 3);
+        this.load.spritesheet('horse', 'assets/images/horse_spritesheet.png', 212, 200, 3);
+        this.load.spritesheet('pig', 'assets/images/pig_spritesheet.png', 297, 200, 3);
+        this.load.spritesheet('sheep', 'assets/images/sheep_spritesheet.png', 244, 200, 3);
     },
     
     create : function(){
@@ -34,14 +40,17 @@ var GameState = {
         var animal;
         
         animalData.forEach(function(element) {
-            // Create the animals and put in group
-            animal = self.animals.create(-1000, self.game.world.centerY, element.key);
+            // Create the animals and save its properties
+            animal = self.animals.create(-1000, self.game.world.centerY, element.key, 0);
             
             // Custom property to save non Phaser related items
             animal.customParams = {text : element.text};
             
             // Set anchor point to sprite center
             animal.anchor.setTo(0.5);
+            
+            // Create Animal animation
+            animal.animations.add('animate', [0, 1, 2, 1, 0, 1], 3, false);
             
             // Enable input
             animal.inputEnabled = true;
@@ -80,11 +89,18 @@ var GameState = {
     
     // Play animal animation
     animateAnimal : function(sprite, event){
-        console.log('animate..');
+        sprite.play('animate');
     },
     
     // Switch animal
     switchAnimal : function(sprite, event){
+        // If an animation is taking place, do nothing
+        if(this.isMoving){
+            return false;
+        }
+        
+        this.isMoving = true;
+        
         var newAnimal, endX;
         
         // Animal comes in depending on which arrow is pressed
